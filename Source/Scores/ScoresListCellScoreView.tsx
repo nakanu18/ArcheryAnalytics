@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 import * as Types from "../Types";
 
@@ -14,7 +14,7 @@ const ScoresListCellScoreView = (props: IProps) => (
     </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
     viewStyle: {
         justifyContent: "center",
         alignItems: "flex-start"
@@ -25,6 +25,6 @@ const styles = {
     detailStyle: {
         fontSize: 10
     }
-};
+});
 
 export default ScoresListCellScoreView;

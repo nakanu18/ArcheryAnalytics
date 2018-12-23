@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import ScoresListCellDetailsView from "./ScoresListCellDetailsView";
 import ScoresListCellScoreView from "./ScoresListCellScoreView";
@@ -56,7 +56,7 @@ export default class ScoresListCell extends React.Component<IProps, IState> {
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     cellStyle: {
         backgroundColor: "#FFFFFF",
         flexDirection: "column",
@@ -68,4 +68,4 @@ const styles = {
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5
     }
-};
+});
