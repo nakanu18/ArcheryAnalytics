@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
+import ScoresListCellDetailsView from "./ScoresListCellDetailsView";
+import ScoresListCellScoreView from "./ScoresListCellScoreView";
 import * as Types from "../Types";
 
 interface IProps {
@@ -29,7 +31,8 @@ export default class ScoresListCell extends React.Component<IProps, IState> {
         return (
             <TouchableOpacity>
                 <View style={{ flexDirection: "row" }}>
-                    <Text>{this.props.scoreCard.roundID}</Text>
+                    <ScoresListCellDetailsView scoreCard={this.props.scoreCard} />
+                    <ScoresListCellScoreView scoreCard={this.props.scoreCard} />
                 </View>
             </TouchableOpacity>
         );
