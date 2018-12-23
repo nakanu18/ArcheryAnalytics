@@ -58,12 +58,13 @@ export default class ScoresListCell extends React.Component<IProps, IState> {
 
 const styles = {
     cellStyle: {
+        backgroundColor: "#FFFFFF",
         flexDirection: "column",
         paddingTop: 15,
         paddingBottom: 15,
         paddingLeft: 15,
         paddingRight: 15,
-        shadowColor: "#0000FF",
+        shadowColor: "#000000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5
     }
