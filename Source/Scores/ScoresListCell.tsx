@@ -1,39 +1,37 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
+import * as Types from "../Types";
+
 interface IProps {
-  roundID: number;
-  didSelectRow(roundID: number): void;
+    scoreCard: Types.IScoreCard;
+    didSelectRow(roundID: number): void;
 }
 
-interface IState {
-}
+interface IState {}
 
 export default class ScoresListCell extends React.Component<IProps, IState> {
+    // Lifecycle
 
-  // Lifecycle
+    constructor(props: IProps) {
+        super(props);
+    }
 
-  constructor(props: IProps) {
-    super(props);
-  }
+    // Interaction
 
-  // Interaction
+    public didTapCell = () => {
+        this.props.didSelectRow(this.props.scoreCard.roundID);
+    };
 
-  public didTapCell = () => {
-    this.props.didSelectRow(this.props.roundID);
-  }
+    // Render
 
-  // Render
-
-  public render() {
-    return (
-      <TouchableOpacity>
-        <View style={{ flexDirection: "row" }}>
-          <Text>
-            {this.props.roundID}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+    public render() {
+        return (
+            <TouchableOpacity>
+                <View style={{ flexDirection: "row" }}>
+                    <Text>{this.props.scoreCard.roundID}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    }
 }
