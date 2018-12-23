@@ -45,6 +45,7 @@ export default class ScoresListScreen extends React.Component<IProps, IState> {
     // Interaction
 
     public didSelectRowCallback = (roundID: number) => {
+        this.setState({ selectedRoundID: roundID });
         console.log(roundID);
     };
 
@@ -53,14 +54,10 @@ export default class ScoresListScreen extends React.Component<IProps, IState> {
     public keyItemExtractor = (item: Types.IScoreCard) => `${item.roundID}`;
     public renderItem = ({ item }: any) => (
         <ScoresListCell
-            didSelectRow={this.didSelectRowCallback}
             scoreCard={item}
+            didSelectRow={this.didSelectRowCallback}
+            isSelected={this.state.selectedRoundID === item.roundID}
         />
-        // <ResultsRoundCell
-        //     didSelectRowCallback={this.didSelectRowCallback}
-        //     isSelected={this.state.selectedRoundID === item.roundId}
-        //     {...item}
-        // />
     );
 
     public render() {
