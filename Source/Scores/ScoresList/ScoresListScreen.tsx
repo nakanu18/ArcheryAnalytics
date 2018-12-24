@@ -1,19 +1,21 @@
 import React from "react";
 import { FlatList, StyleSheet, Text } from "react-native";
 import { connect } from "react-redux";
+import { NavigationScreenProp } from "react-navigation";
 
 import ScoresListCell from "./ScoresListCell";
-import { saveScoreCard } from "../Redux/ScoreDux";
-import * as Types from "../Types";
+import { saveScoreCard } from "../../Redux/ScoreDux";
+import * as Types from "../../Types";
 
 interface IProps {
     scoreCards: Types.IScoreCard[];
     saveScoreCard: Function;
+    navigation: NavigationScreenProp<any, any>;
 }
 
 interface IState {
     selectedRoundID: number | null;
-    scores: Types.IScoreCard[];
+    scoreCards: Types.IScoreCard[];
 }
 
 class ScoresListScreen extends React.Component<IProps, IState> {
@@ -23,7 +25,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
         super(props);
 
         this.state = {
-            scores: [
+            scoreCards: [
                 {
                     roundID: 0,
                     roundName: "VEGAS 300",
@@ -45,9 +47,9 @@ class ScoresListScreen extends React.Component<IProps, IState> {
             ],
             selectedRoundID: null
         };
-        this.props.saveScoreCard(this.state.scores[0]);
-        this.props.saveScoreCard(this.state.scores[1]);
-        this.props.saveScoreCard(this.state.scores[2]);
+        this.props.saveScoreCard(this.state.scoreCards[0]);
+        this.props.saveScoreCard(this.state.scoreCards[1]);
+        this.props.saveScoreCard(this.state.scoreCards[2]);
     }
 
     componentWillReceiveProps(nextProps: IProps) {}
@@ -56,6 +58,9 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     public didSelectRowCallback = (roundID: number) => {
         this.setState({ selectedRoundID: roundID });
+        this.props.navigation.navigate("Details", {
+            scoreCard: this.props.scoreCards[roundID]
+        });
     };
 
     // Render
@@ -72,7 +77,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     public render() {
         return (
             <FlatList
-                data={this.state.scores}
+                data={this.state.scoreCards}
                 extraData={this.state}
                 keyExtractor={this.keyItemExtractor}
                 renderItem={this.renderItem}

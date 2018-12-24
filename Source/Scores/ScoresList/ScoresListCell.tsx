@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import ScoresListCellDetailsView from "./ScoresListCellDetailsView";
 import ScoresListCellScoreView from "./ScoresListCellScoreView";
-import * as Types from "../Types";
+import * as Types from "../../Types";
 
 interface IProps {
     scoreCard: Types.IScoreCard;
