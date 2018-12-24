@@ -1,15 +1,14 @@
 import { createStore, combineReducers, compose } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import { scoreReducer } from "../Redux/ScoreDux";
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     scores: scoreReducer
 });
 
 const configureStore = () => {
-    return createStore(rootReducer, {}, composeEnhancers());
+    return createStore(rootReducer, {}, composeWithDevTools());
 };
 
 export default configureStore;
