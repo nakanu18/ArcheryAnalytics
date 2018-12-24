@@ -1,17 +1,22 @@
 import React from "react";
 import { FlatList, StyleSheet, Text } from "react-native";
+import { connect } from "react-redux";
 
 import ScoresListCell from "./ScoresListCell";
+import { saveScoreCard } from "../Redux/ScoreDux";
 import * as Types from "../Types";
 
-interface IProps {}
+interface IProps {
+    scoreCards: Types.IScoreCard[];
+    saveScoreCard: Function;
+}
 
 interface IState {
     selectedRoundID: number | null;
     scores: Types.IScoreCard[];
 }
 
-export default class ScoresListScreen extends React.Component<IProps, IState> {
+class ScoresListScreen extends React.Component<IProps, IState> {
     // Lifecycle
 
     constructor(props: IProps) {
@@ -42,11 +47,20 @@ export default class ScoresListScreen extends React.Component<IProps, IState> {
         };
     }
 
+    componentDidMount() {
+        this.props.saveScoreCard(this.state.scores[0]);
+        this.props.saveScoreCard(this.state.scores[1]);
+        this.props.saveScoreCard(this.state.scores[2]);
+    }
+
+    componentWillReceiveProps(nextProps: IProps) {}
+
+    componentWillUpdate() {}
+
     // Interaction
 
     public didSelectRowCallback = (roundID: number) => {
         this.setState({ selectedRoundID: roundID });
-        console.log(roundID);
     };
 
     // Render
@@ -72,26 +86,23 @@ export default class ScoresListScreen extends React.Component<IProps, IState> {
     }
 }
 
-// styles
+// Redux
 
-const styles = StyleSheet.create({
-    button: {
-        flex: 1,
-        paddingVertical: 0
-    },
-    buttons: {
-        alignItems: "stretch",
-        alignSelf: "center",
-        borderWidth: 5,
-        flexDirection: "row",
-        minHeight: 70
-    },
-    greeting: {
-        color: "#999",
-        fontWeight: "bold"
-    },
-    root: {
-        alignItems: "center",
-        alignSelf: "center"
-    }
-});
+const mapStateToProps = (state: Types.IReduxState) => {
+    return {
+        scoreCards: state.scores.scoreCards
+    };
+};
+
+const mapDispatchToProps = (dispatch: Function) => {
+    return {
+        saveScoreCard: (scoreCard: Types.IScoreCard) => {
+            dispatch(saveScoreCard(scoreCard));
+        }
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ScoresListScreen);
