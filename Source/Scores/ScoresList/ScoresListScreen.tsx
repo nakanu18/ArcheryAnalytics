@@ -14,7 +14,7 @@ interface IProps {
 }
 
 interface IState {
-    selectedRoundID: number | null;
+    selectedScoreCardID: number | null;
     scoreCards: Types.IScoreCard[];
 }
 
@@ -27,25 +27,25 @@ class ScoresListScreen extends React.Component<IProps, IState> {
         this.state = {
             scoreCards: [
                 {
-                    roundID: 0,
+                    scoreCardID: 0,
                     roundName: "VEGAS 300",
                     date: "April 20",
                     score: "258/300"
                 },
                 {
-                    roundID: 1,
+                    scoreCardID: 1,
                     roundName: "VEGAS 300",
                     date: "April 19",
                     score: "272/300"
                 },
                 {
-                    roundID: 2,
+                    scoreCardID: 2,
                     roundName: "NFAA 300",
                     date: "April 1",
                     score: "271/300"
                 }
             ],
-            selectedRoundID: null
+            selectedScoreCardID: null
         };
         this.props.saveScoreCard(this.state.scoreCards[0]);
         this.props.saveScoreCard(this.state.scoreCards[1]);
@@ -57,7 +57,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     // Interaction
 
     public didSelectRow = (scoreCard: Types.IScoreCard) => {
-        this.setState({ selectedRoundID: scoreCard.roundID });
+        this.setState({ selectedScoreCardID: scoreCard.scoreCardID });
         this.props.navigation.navigate("Details", {
             scoreCard: scoreCard
         });
@@ -65,12 +65,12 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     // Render
 
-    public keyItemExtractor = (item: Types.IScoreCard) => `${item.roundID}`;
+    public keyItemExtractor = (item: Types.IScoreCard) => `${item.scoreCardID}`;
     public renderItem = ({ item }: any) => (
         <ScoresListCell
             scoreCard={item}
             didSelectRow={this.didSelectRow}
-            isSelected={this.state.selectedRoundID === item.roundID}
+            isSelected={this.state.selectedScoreCardID === item.roundID}
         />
     );
 

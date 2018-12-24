@@ -37,7 +37,7 @@ class ScoresDetailScreen extends React.Component<IProps, IState> {
 
     public render() {
         if (!!this.state.scoreCard) {
-            return <Text>Round ID: {this.state.scoreCard.roundID}</Text>;
+            return <Text>Round ID: {this.state.scoreCard.scoreCardID}</Text>;
         }
         return <Text>No Score</Text>;
     }
