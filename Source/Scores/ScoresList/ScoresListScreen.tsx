@@ -56,10 +56,10 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     // Interaction
 
-    public didSelectRowCallback = (roundID: number) => {
-        this.setState({ selectedRoundID: roundID });
+    public didSelectRow = (scoreCard: Types.IScoreCard) => {
+        this.setState({ selectedRoundID: scoreCard.roundID });
         this.props.navigation.navigate("Details", {
-            scoreCard: this.props.scoreCards[roundID]
+            scoreCard: scoreCard
         });
     };
 
@@ -69,7 +69,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     public renderItem = ({ item }: any) => (
         <ScoresListCell
             scoreCard={item}
-            didSelectRow={this.didSelectRowCallback}
+            didSelectRow={this.didSelectRow}
             isSelected={this.state.selectedRoundID === item.roundID}
         />
     );

@@ -7,7 +7,7 @@ import * as Types from "../../Types";
 
 interface IProps {
     scoreCard: Types.IScoreCard;
-    didSelectRow(roundID: number): void;
+    didSelectRow(scoreCard: Types.IScoreCard): void;
     isSelected: boolean;
 }
 
@@ -23,7 +23,7 @@ export default class ScoresListCell extends React.Component<IProps, IState> {
     // Interaction
 
     public didTapCell = () => {
-        this.props.didSelectRow(this.props.scoreCard.roundID);
+        this.props.didSelectRow(this.props.scoreCard);
     };
 
     // Render

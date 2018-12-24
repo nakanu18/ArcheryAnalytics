@@ -27,12 +27,7 @@ class ScoresDetailScreen extends React.Component<IProps, IState> {
 
     componentDidMount() {
         this.setState({
-            scoreCard: this.props.navigation.getParam("scoreCard", {
-                roundID: 99,
-                roundName: "NFAA 300",
-                date: "April 1",
-                score: "271/300"
-            })
+            scoreCard: this.props.navigation.getParam("scoreCard", null)
         });
     }
 
