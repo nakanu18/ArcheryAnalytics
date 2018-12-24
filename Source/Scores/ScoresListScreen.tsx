@@ -45,17 +45,12 @@ class ScoresListScreen extends React.Component<IProps, IState> {
             ],
             selectedRoundID: null
         };
-    }
-
-    componentDidMount() {
         this.props.saveScoreCard(this.state.scores[0]);
         this.props.saveScoreCard(this.state.scores[1]);
         this.props.saveScoreCard(this.state.scores[2]);
     }
 
     componentWillReceiveProps(nextProps: IProps) {}
-
-    componentWillUpdate() {}
 
     // Interaction
 
