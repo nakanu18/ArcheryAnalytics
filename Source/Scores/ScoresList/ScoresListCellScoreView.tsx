@@ -9,8 +9,8 @@ interface IProps {
 
 const ScoresListCellScoreView = (props: IProps) => (
     <View style={styles.viewStyle}>
-        <Text style={styles.scoreStyle}>{props.scoreCard.score}</Text>
-        <Text style={styles.detailStyle}>Details</Text>
+        <Text style={styles.scoreStyle}>Missing</Text>
+        <Text style={styles.detailStyle}>{props.scoreCard.bowName}</Text>
     </View>
 );
 

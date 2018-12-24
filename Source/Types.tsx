@@ -15,8 +15,9 @@ export interface IAction {
 export interface IScoreCard {
     scoreCardID: number;
     roundName: string;
+    bowName: string;
     date: string;
-    score: string;
+    endScores: number[][];
 }
 
 export interface IRoundTemplate {

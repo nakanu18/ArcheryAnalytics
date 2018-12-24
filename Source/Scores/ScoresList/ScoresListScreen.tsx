@@ -15,7 +15,6 @@ interface IProps {
 
 interface IState {
     selectedScoreCardID: number | null;
-    scoreCards: Types.IScoreCard[];
 }
 
 class ScoresListScreen extends React.Component<IProps, IState> {
@@ -24,32 +23,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
-        this.state = {
-            scoreCards: [
-                {
-                    scoreCardID: 0,
-                    roundName: "VEGAS 300",
-                    date: "April 20",
-                    score: "258/300"
-                },
-                {
-                    scoreCardID: 1,
-                    roundName: "VEGAS 300",
-                    date: "April 19",
-                    score: "272/300"
-                },
-                {
-                    scoreCardID: 2,
-                    roundName: "NFAA 300",
-                    date: "April 1",
-                    score: "271/300"
-                }
-            ],
-            selectedScoreCardID: null
-        };
-        this.props.saveScoreCard(this.state.scoreCards[0]);
-        this.props.saveScoreCard(this.state.scoreCards[1]);
-        this.props.saveScoreCard(this.state.scoreCards[2]);
+        this.state = { selectedScoreCardID: null };
     }
 
     componentWillReceiveProps(nextProps: IProps) {}
@@ -77,7 +51,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     public render() {
         return (
             <FlatList
-                data={this.state.scoreCards}
+                data={this.props.scoreCards}
                 extraData={this.state}
                 keyExtractor={this.keyItemExtractor}
                 renderItem={this.renderItem}
