@@ -1,14 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
-import { connect } from "react-redux";
+import { FlatList, Text, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import ScoresDetailEndCell from "./ScoresDetailEndCell";
 import { saveScoreCard } from "../../Redux/ScoreDux";
 import * as Types from "../../Types";
 
 interface IProps {
-    scoreCards: Types.IScoreCard[];
-    saveScoreCard: Function;
     navigation: NavigationScreenProp<any, any>;
 }
 
@@ -16,7 +14,10 @@ interface IState {
     scoreCard: Types.IScoreCard | null;
 }
 
-class ScoresDetailScreen extends React.Component<IProps, IState> {
+export default class ScoresDetailScreen extends React.Component<
+    IProps,
+    IState
+> {
     // Lifecycle
 
     constructor(props: IProps) {
@@ -35,29 +36,24 @@ class ScoresDetailScreen extends React.Component<IProps, IState> {
 
     // Render
 
-    public render() {
-        if (!!this.state.scoreCard) {
-            return <Text>Round ID: {this.state.scoreCard.scoreCardID}</Text>;
+    public keyItemExtractor = (item: number[], index: number) => `${index}`;
+    public renderItem = ({ item, index }: any) => {
+        return <ScoresDetailEndCell endID={index} endScores={item} />;
+    };
+    renderFlatList = () => {
+        if (this.state.scoreCard) {
+            return (
+                <FlatList
+                    data={this.state.scoreCard.endScores}
+                    extraData={this.state}
+                    keyExtractor={this.keyItemExtractor}
+                    renderItem={this.renderItem}
+                />
+            );
         }
-        return <Text>No Score</Text>;
+    };
+
+    public render() {
+        return <View>{this.renderFlatList()}</View>;
     }
 }
-
-const mapStateToProps = (state: Types.IReduxState) => {
-    return {
-        scoreCards: state.scores.scoreCards
-    };
-};
-
-const mapDispatchToProps = (dispatch: Function) => {
-    return {
-        saveScoreCard: (scoreCard: Types.IScoreCard) => {
-            dispatch(saveScoreCard(scoreCard));
-        }
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ScoresDetailScreen);
