@@ -1,14 +1,16 @@
 import React from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, StyleSheet, Text, Alert, AlertIOS } from "react-native";
 import { connect } from "react-redux";
 import { NavigationScreenProp } from "react-navigation";
 
 import ScoresListCell from "./ScoresListCell";
 import { saveScoreCard } from "../../Redux/ScoreDux";
+import * as RoundUtils from "../../Utils/RoundUtils";
 import * as Types from "../../Types";
 
 interface IProps {
     scoreCards: Types.IScoreCard[];
+    roundTemplates: Types.IRoundTemplate[];
     saveScoreCard: Function;
     navigation: NavigationScreenProp<any, any>;
 }
@@ -31,10 +33,18 @@ class ScoresListScreen extends React.Component<IProps, IState> {
     // Interaction
 
     public didSelectRow = (scoreCard: Types.IScoreCard) => {
-        this.setState({ selectedScoreCardID: scoreCard.scoreCardID });
-        this.props.navigation.navigate("Details", {
-            scoreCard: scoreCard
-        });
+        const roundTemplate: Types.IRoundTemplate | null = RoundUtils.roundTemplateForScoreCard(
+            scoreCard.roundName,
+            this.props.roundTemplates
+        );
+
+        if (roundTemplate !== null) {
+            this.setState({ selectedScoreCardID: scoreCard.scoreCardID });
+            this.props.navigation.navigate("Details", {
+                scoreCard: scoreCard,
+                roundTemplate: roundTemplate
+            });
+        }
     };
 
     // Render
@@ -64,7 +74,8 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: Types.IReduxState) => {
     return {
-        scoreCards: state.scores.scoreCards
+        scoreCards: state.scores.scoreCards,
+        roundTemplates: state.roundTemplates
     };
 };
 

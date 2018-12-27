@@ -3,7 +3,7 @@ import { FlatList, Text, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import ScoresDetailEndCell from "./ScoresDetailEndCell";
-import { saveScoreCard } from "../../Redux/ScoreDux";
+import { saveScoreCard, scoreReducer } from "../../Redux/ScoreDux";
 import * as Types from "../../Types";
 
 interface IProps {
@@ -11,7 +11,8 @@ interface IProps {
 }
 
 interface IState {
-    scoreCard: Types.IScoreCard | null;
+    scoreCard: Types.IScoreCard;
+    roundTemplate: Types.IRoundTemplate;
 }
 
 export default class ScoresDetailScreen extends React.Component<
@@ -23,13 +24,18 @@ export default class ScoresDetailScreen extends React.Component<
     constructor(props: IProps) {
         super(props);
 
-        this.state = { scoreCard: null };
+        // this.state = { scoreCard: null, roundTemplate: {} };
+        this.state = {
+            scoreCard: this.props.navigation.getParam("scoreCard", null),
+            roundTemplate: this.props.navigation.getParam("roundTemplate", null)
+        };
     }
 
     componentDidMount() {
-        this.setState({
-            scoreCard: this.props.navigation.getParam("scoreCard", null)
-        });
+        // this.setState({
+        //     scoreCard: this.props.navigation.getParam("scoreCard", null),
+        //     roundTemplate: this.props.navigation.getParam("roundTemplate", null)
+        // });
     }
 
     componentWillReceiveProps(nextProps: IProps) {}
@@ -38,7 +44,13 @@ export default class ScoresDetailScreen extends React.Component<
 
     public keyItemExtractor = (item: number[], index: number) => `${index}`;
     public renderItem = ({ item, index }: any) => {
-        return <ScoresDetailEndCell endID={index} endScores={item} />;
+        return (
+            <ScoresDetailEndCell
+                endID={index}
+                endScore={item}
+                roundTemplate={this.state.roundTemplate}
+            />
+        );
     };
     renderFlatList = () => {
         if (this.state.scoreCard) {

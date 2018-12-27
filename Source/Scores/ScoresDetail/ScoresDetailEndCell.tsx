@@ -1,26 +1,41 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
+import * as ScoreUtils from "../../Utils/ScoreUtils";
 import * as Types from "../../Types";
 
 interface IProps {
     endID: number;
-    endScores: number[];
+    endScore: number[];
+    roundTemplate: Types.IRoundTemplate;
 }
 
 const renderEndScores = (props: IProps) => {
-    const comp = props.endScores.map((value, index) => (
-        <Text key={index}>{value}</Text>
-    ));
+    const comp = props.endScore.map((value, index) => {
+        const uiArrowScore = ScoreUtils.uiArrowScore(
+            value,
+            props.roundTemplate.roundTarget
+        );
+
+        return <Text key={index}>{uiArrowScore}</Text>;
+    });
     return comp;
 };
 
-const ScoresDetailEndCell = (props: IProps) => (
-    <View style={styles.viewStyle}>
-        <Text>{props.endID}:</Text>
-        <View style={styles.scoreStyle}>{renderEndScores(props)}</View>
-    </View>
-);
+const ScoresDetailEndCell = (props: IProps) => {
+    const totalEndScore = ScoreUtils.totalEndScore(
+        props.endScore,
+        props.roundTemplate.roundTarget
+    );
+
+    return (
+        <View style={styles.viewStyle}>
+            <Text>{props.endID + 1}:</Text>
+            <View style={styles.scoreStyle}>{renderEndScores(props)}</View>
+            <Text>{totalEndScore}</Text>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     viewStyle: {

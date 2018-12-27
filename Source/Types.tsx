@@ -22,6 +22,7 @@ export interface IScoreCard {
 
 export interface IRoundTemplate {
     roundName: string;
+    roundTarget: string;
     roundLeg: IRoundLegTemplate[];
 }
 
@@ -29,5 +30,4 @@ export interface IRoundLegTemplate {
     distance: number;
     numberOfArrowsPerEnd: number;
     numberOfEnds: number;
-    maxScorePerArrow: number;
 }
