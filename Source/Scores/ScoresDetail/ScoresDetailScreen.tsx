@@ -24,18 +24,10 @@ export default class ScoresDetailScreen extends React.Component<
     constructor(props: IProps) {
         super(props);
 
-        // this.state = { scoreCard: null, roundTemplate: {} };
         this.state = {
             scoreCard: this.props.navigation.getParam("scoreCard", null),
             roundTemplate: this.props.navigation.getParam("roundTemplate", null)
         };
-    }
-
-    componentDidMount() {
-        // this.setState({
-        //     scoreCard: this.props.navigation.getParam("scoreCard", null),
-        //     roundTemplate: this.props.navigation.getParam("roundTemplate", null)
-        // });
     }
 
     componentWillReceiveProps(nextProps: IProps) {}

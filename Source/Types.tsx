@@ -31,3 +31,8 @@ export interface IRoundLegTemplate {
     numberOfArrowsPerEnd: number;
     numberOfEnds: number;
 }
+
+export interface IColor {
+    color: string;
+    backgroundColor: string;
+}

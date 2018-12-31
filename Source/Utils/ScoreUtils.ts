@@ -1,6 +1,9 @@
 import * as Types from "../Types";
 
-export const uiArrowScore = (score: number, roundTarget: string): string => {
+export const textForArrowScore = (
+    score: number,
+    roundTarget: string
+): string => {
     var value: string = score === -1 ? "_" : `${score}`;
 
     if (roundTarget === "multicolor") {
@@ -9,6 +12,37 @@ export const uiArrowScore = (score: number, roundTarget: string): string => {
         value = score === 6 ? "X" : `${score}`;
     }
     return value;
+};
+
+export const colorForArrowScore = (
+    score: number,
+    roundTarget: string
+): Types.IColor => {
+    var color: Types.IColor = {
+        backgroundColor: "#FFFFFF",
+        color: "#FF0000"
+    };
+
+    if (roundTarget === "multicolor") {
+        if (score >= 9) {
+            color = { backgroundColor: "#E6E600", color: "#000000" };
+        } else if (score >= 7) {
+            color = { backgroundColor: "#FF0000", color: "#FFFFFF" };
+        } else if (score >= 5) {
+            color = { backgroundColor: "#4C4CFF", color: "#FFFFFF" };
+        } else if (score >= 3) {
+            color = { backgroundColor: "#000000", color: "#FFFFFF" };
+        } else if (score >= 1) {
+            color = { backgroundColor: "#FFFFFF", color: "#000000" };
+        }
+    } else if (roundTarget === "blue") {
+        if (score >= 5) {
+            color = { backgroundColor: "#FFFFFF", color: "#000000" };
+        } else if (score >= 1) {
+            color = { backgroundColor: "#004080", color: "#FFFFFF" };
+        }
+    }
+    return color;
 };
 
 export const arrowScore = (score: number, roundTarget: string): number => {

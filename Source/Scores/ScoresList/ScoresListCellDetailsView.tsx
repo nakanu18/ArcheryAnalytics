@@ -18,6 +18,7 @@ const ScoresListCellDetailsView = (props: IProps) => (
 const styles = StyleSheet.create({
     viewStyle: {
         flex: 1,
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "flex-start"
     },
