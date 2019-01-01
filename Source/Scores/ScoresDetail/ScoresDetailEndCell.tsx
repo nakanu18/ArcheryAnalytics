@@ -10,7 +10,7 @@ interface IProps {
     roundTemplate: Types.IRoundTemplate;
 }
 
-const renderEndScores = (props: IProps) => {
+const renderEndScores = (props: IProps): JSX.Element[] => {
     const comp = props.endScore.map((value, index) => {
         const textForArrowScore: string = ScoreUtils.textForArrowScore(
             value,
@@ -22,14 +22,17 @@ const renderEndScores = (props: IProps) => {
         );
 
         return (
-            <TouchableOpacity key={index} style={styles.arrowButtonStyle}>
-                <Text
-                    key={index}
-                    style={{
-                        ...colorForArrowScore,
-                        textAlign: "center"
-                    }}
-                >
+            <TouchableOpacity
+                key={index}
+                style={{
+                    width: 30,
+                    height: 30,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: colorForArrowScore.backgroundColor
+                }}
+            >
+                <Text key={index} style={{ color: colorForArrowScore.color }}>
                     {textForArrowScore}
                 </Text>
             </TouchableOpacity>
@@ -73,12 +76,10 @@ const styles = StyleSheet.create({
     },
     endNumberContainerStyle: {
         justifyContent: "center",
-        width: 30,
-        height: 30
+        alignItems: "center",
+        width: 30
     },
-    endNumberStyle: {
-        textAlign: "center"
-    },
+    endNumberStyle: {},
     scoreContainerStyle: {
         flex: 1,
         flexDirection: "row",
@@ -87,16 +88,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#F2F2F2"
     },
     scoreStyle: {},
-    arrowButtonStyle: {
-        width: 30
-    },
     endTotalContainerStyle: {
         justifyContent: "center",
+        alignItems: "center",
         width: 30
     },
-    endTotalStyle: {
-        textAlign: "center"
-    }
+    endTotalStyle: {}
 });
 
 export default ScoresDetailEndCell;

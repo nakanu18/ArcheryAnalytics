@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import ScoresDetailEndCell from "./ScoresDetailEndCell";
@@ -35,7 +35,7 @@ export default class ScoresDetailScreen extends React.Component<
     // Render
 
     public keyItemExtractor = (item: number[], index: number) => `${index}`;
-    public renderItem = ({ item, index }: any) => {
+    public renderItem = ({ item, index }: any): JSX.Element => {
         return (
             <ScoresDetailEndCell
                 endID={index}
@@ -58,6 +58,6 @@ export default class ScoresDetailScreen extends React.Component<
     };
 
     public render() {
-        return <View>{this.renderFlatList()}</View>;
+        return <View style={{ flex: 1 }}>{this.renderFlatList()}</View>;
     }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, Alert, AlertIOS } from "react-native";
+import { FlatList, View } from "react-native";
 import { connect } from "react-redux";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -60,12 +60,14 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     public render() {
         return (
-            <FlatList
-                data={this.props.scoreCards}
-                extraData={this.state}
-                keyExtractor={this.keyItemExtractor}
-                renderItem={this.renderItem}
-            />
+            <View style={{ flex: 1 }}>
+                <FlatList
+                    data={this.props.scoreCards}
+                    extraData={this.state}
+                    keyExtractor={this.keyItemExtractor}
+                    renderItem={this.renderItem}
+                />
+            </View>
         );
     }
 }
