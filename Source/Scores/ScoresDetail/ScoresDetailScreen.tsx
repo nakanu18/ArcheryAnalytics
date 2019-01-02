@@ -1,8 +1,9 @@
 import React from "react";
-import { FlatList, View } from "react-native";
+import { SectionList, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import ScoresDetailEndCell from "./ScoresDetailEndCell";
+import ScoresDetailTotalsCell from "./ScoresDetailTotalsCell";
 import { saveScoreCard, scoreReducer } from "../../Redux/ScoreDux";
 import * as Types from "../../Types";
 
@@ -34,27 +35,47 @@ export default class ScoresDetailScreen extends React.Component<
 
     // Render
 
-    public keyItemExtractor = (item: number[], index: number) => `${index}`;
-    public renderItem = ({ item, index }: any): JSX.Element => {
+    renderSectionHeader = ({ section }: any) => <View />;
+
+    renderCells = ({ item, index, section }: any) => {
+        switch (section.title) {
+            case "0":
+                return this.renderEndCell({ item, index });
+            default:
+                return this.renderTotalsCell({ item, index });
+        }
+    };
+
+    renderEndCell = ({ item, index }: any): JSX.Element => (
+        <ScoresDetailEndCell
+            endID={index}
+            endScore={item}
+            roundTemplate={this.state.roundTemplate}
+        />
+    );
+
+    renderTotalsCell = ({ item, index }: any): JSX.Element => (
+        <ScoresDetailTotalsCell
+            scoreCard={item}
+            roundTemplate={this.state.roundTemplate}
+        />
+    );
+
+    renderFlatList = () => {
+        if (!this.state.scoreCard) {
+            return null;
+        }
         return (
-            <ScoresDetailEndCell
-                endID={index}
-                endScore={item}
-                roundTemplate={this.state.roundTemplate}
+            <SectionList
+                renderItem={this.renderCells}
+                renderSectionHeader={this.renderSectionHeader}
+                sections={[
+                    { title: "0", data: this.state.scoreCard.endScores },
+                    { title: "1", data: [this.state.scoreCard] }
+                ]}
+                keyExtractor={(item, index) => item + index}
             />
         );
-    };
-    renderFlatList = () => {
-        if (this.state.scoreCard) {
-            return (
-                <FlatList
-                    data={this.state.scoreCard.endScores}
-                    extraData={this.state}
-                    keyExtractor={this.keyItemExtractor}
-                    renderItem={this.renderItem}
-                />
-            );
-        }
     };
 
     public render() {

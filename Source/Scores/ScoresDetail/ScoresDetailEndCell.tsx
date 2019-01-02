@@ -25,11 +25,12 @@ const renderEndScores = (props: IProps): JSX.Element[] => {
             <TouchableOpacity
                 key={index}
                 style={{
-                    width: 30,
-                    height: 30,
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: colorForArrowScore.backgroundColor
+                    backgroundColor: colorForArrowScore.backgroundColor,
+                    borderRadius: 10,
+                    width: 30,
+                    height: 30
                 }}
             >
                 <Text key={index} style={{ color: colorForArrowScore.color }}>
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     endNumberContainerStyle: {
         justifyContent: "center",
         alignItems: "center",
-        width: 30
+        width: 35
     },
     endNumberStyle: {},
     scoreContainerStyle: {
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     endTotalContainerStyle: {
         justifyContent: "center",
         alignItems: "center",
-        width: 30
+        width: 35
     },
     endTotalStyle: {}
 });
