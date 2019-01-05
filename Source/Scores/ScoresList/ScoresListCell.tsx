@@ -22,7 +22,7 @@ export default class ScoresListCell extends React.Component<IProps, IState> {
 
     // Interaction
 
-    public didTapCell = () => {
+    didTapCell = () => {
         this.props.didSelectRow(this.props.scoreCard);
     };
 

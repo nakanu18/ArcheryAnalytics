@@ -33,11 +33,17 @@ export default class ScoresDetailScreen extends React.Component<
 
     componentWillReceiveProps(nextProps: IProps) {}
 
+    // Interaction
+
+    didSelectArrowValue = (endID: number, arrowID: number) => {
+        console.log(`${endID} - ${arrowID}`);
+    };
+
     // Render
 
     renderSectionHeader = ({ section }: any) => <View />;
 
-    renderCells = ({ item, index, section }: any) => {
+    renderCells = ({ item, index, section }: any): JSX.Element => {
         switch (section.title) {
             case "0":
                 return this.renderEndCell({ item, index });
@@ -51,6 +57,7 @@ export default class ScoresDetailScreen extends React.Component<
             endID={index}
             endScore={item}
             roundTemplate={this.state.roundTemplate}
+            didSelectArrowValue={this.didSelectArrowValue}
         />
     );
 

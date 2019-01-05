@@ -32,7 +32,7 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     // Interaction
 
-    public didSelectRow = (scoreCard: Types.IScoreCard) => {
+    didSelectRow = (scoreCard: Types.IScoreCard) => {
         const roundTemplate: Types.IRoundTemplate | null = RoundUtils.roundTemplateForScoreCard(
             scoreCard.roundName,
             this.props.roundTemplates
@@ -49,8 +49,8 @@ class ScoresListScreen extends React.Component<IProps, IState> {
 
     // Render
 
-    public keyItemExtractor = (item: Types.IScoreCard) => `${item.scoreCardID}`;
-    public renderItem = ({ item }: any) => (
+    keyItemExtractor = (item: Types.IScoreCard) => `${item.scoreCardID}`;
+    renderItem = ({ item }: any) => (
         <ScoresListCell
             scoreCard={item}
             didSelectRow={this.didSelectRow}

@@ -8,60 +8,83 @@ interface IProps {
     endID: number;
     endScore: number[];
     roundTemplate: Types.IRoundTemplate;
+    didSelectArrowValue: Function;
 }
 
-const renderEndScores = (props: IProps): JSX.Element[] => {
-    const comp = props.endScore.map((value, index) => {
-        const textForArrowScore: string = ScoreUtils.textForArrowScore(
-            value,
-            props.roundTemplate.roundTarget
-        );
-        const colorForArrowScore: Types.IColor = ScoreUtils.colorForArrowScore(
-            value,
-            props.roundTemplate.roundTarget
+export default class ScoresDetailEndCell extends React.Component<IProps> {
+    // Lifecycle
+
+    constructor(props: IProps) {
+        super(props);
+    }
+
+    // Interaction
+
+    didTapArrowButton = (arrowID: number) => {
+        this.props.didSelectArrowValue(this.props.endID, arrowID);
+    };
+
+    // Render
+
+    renderEndScores = (props: IProps): JSX.Element[] => {
+        const comp = props.endScore.map((value, index) => {
+            const textForArrowValue: string = ScoreUtils.textForArrowScore(
+                value,
+                props.roundTemplate.roundTarget
+            );
+            const colorForArrowValue: Types.IColor = ScoreUtils.colorForArrowScore(
+                value,
+                props.roundTemplate.roundTarget
+            );
+
+            return (
+                <TouchableOpacity
+                    key={index}
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: colorForArrowValue.backgroundColor,
+                        borderRadius: 10,
+                        width: 30,
+                        height: 30
+                    }}
+                    onPress={() => this.didTapArrowButton(index)}
+                >
+                    <Text
+                        key={index}
+                        style={{ color: colorForArrowValue.color }}
+                    >
+                        {textForArrowValue}
+                    </Text>
+                </TouchableOpacity>
+            );
+        });
+        return comp;
+    };
+
+    public render() {
+        const totalEndScore = ScoreUtils.totalEndScore(
+            this.props.endScore,
+            this.props.roundTemplate.roundTarget
         );
 
         return (
-            <TouchableOpacity
-                key={index}
-                style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: colorForArrowScore.backgroundColor,
-                    borderRadius: 10,
-                    width: 30,
-                    height: 30
-                }}
-            >
-                <Text key={index} style={{ color: colorForArrowScore.color }}>
-                    {textForArrowScore}
-                </Text>
-            </TouchableOpacity>
+            <View style={styles.viewStyle}>
+                <View style={styles.endNumberContainerStyle}>
+                    <Text style={styles.endNumberStyle}>
+                        {this.props.endID + 1}:
+                    </Text>
+                </View>
+                <View style={styles.scoreContainerStyle}>
+                    {this.renderEndScores(this.props)}
+                </View>
+                <View style={styles.endTotalContainerStyle}>
+                    <Text style={styles.endTotalStyle}>{totalEndScore}</Text>
+                </View>
+            </View>
         );
-    });
-    return comp;
-};
-
-const ScoresDetailEndCell = (props: IProps) => {
-    const totalEndScore = ScoreUtils.totalEndScore(
-        props.endScore,
-        props.roundTemplate.roundTarget
-    );
-
-    return (
-        <View style={styles.viewStyle}>
-            <View style={styles.endNumberContainerStyle}>
-                <Text style={styles.endNumberStyle}>{props.endID + 1}:</Text>
-            </View>
-            <View style={styles.scoreContainerStyle}>
-                {renderEndScores(props)}
-            </View>
-            <View style={styles.endTotalContainerStyle}>
-                <Text style={styles.endTotalStyle}>{totalEndScore}</Text>
-            </View>
-        </View>
-    );
-};
+    }
+}
 
 const styles = StyleSheet.create({
     viewStyle: {
@@ -96,5 +119,3 @@ const styles = StyleSheet.create({
     },
     endTotalStyle: {}
 });
-
-export default ScoresDetailEndCell;
