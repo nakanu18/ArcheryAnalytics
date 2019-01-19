@@ -18,8 +18,10 @@ interface IState {
     roundTemplate: Types.IRoundTemplate;
 }
 
-// prettier-ignore
-export default class ScoresDetailScreen extends React.Component<IProps, IState> {
+export default class ScoresDetailScreen extends React.Component<
+    IProps,
+    IState
+> {
     // Lifecycle
 
     constructor(props: IProps) {
@@ -50,30 +52,30 @@ export default class ScoresDetailScreen extends React.Component<IProps, IState> 
 
     renderCells = ({ item, index, section }: any): JSX.Element => {
         switch (section.title) {
-            case "0":
-                return this.renderEndCell({ item, index });
+            case "header":
+                return (
+                    <ScoresDetailEndCell
+                        endID={index}
+                        endScore={item}
+                        selectedArrowID={
+                            this.state.selectedEndID === index
+                                ? this.state.selectedArrowID
+                                : null
+                        }
+                        roundTemplate={this.state.roundTemplate}
+                        didSelectArrowValue={this.didSelectArrowValue}
+                    />
+                );
+
             default:
-                return this.renderTotalsCell({ item, index });
+                return (
+                    <ScoresDetailTotalsCell
+                        scoreCard={item}
+                        roundTemplate={this.state.roundTemplate}
+                    />
+                );
         }
     };
-
-    renderEndCell = ({ item, index }: any): JSX.Element => (
-        <ScoresDetailEndCell
-            endID={index}
-            endScore={item}
-            // prettier-ignore
-            selectedArrowID={this.state.selectedEndID === index ? this.state.selectedArrowID : null}
-            roundTemplate={this.state.roundTemplate}
-            didSelectArrowValue={this.didSelectArrowValue}
-        />
-    );
-
-    renderTotalsCell = ({ item, index }: any): JSX.Element => (
-        <ScoresDetailTotalsCell
-            scoreCard={item}
-            roundTemplate={this.state.roundTemplate}
-        />
-    );
 
     renderFlatList = () => {
         if (!this.state.scoreCard) {
@@ -81,12 +83,12 @@ export default class ScoresDetailScreen extends React.Component<IProps, IState> 
         }
         return (
             <SectionList
-                renderItem={this.renderCells}
-                renderSectionHeader={this.renderSectionHeader}
                 sections={[
-                    { title: "0", data: this.state.scoreCard.endScores },
-                    { title: "1", data: [this.state.scoreCard] }
+                    { title: "header", data: this.state.scoreCard.endScores },
+                    { title: "endCells", data: [this.state.scoreCard] }
                 ]}
+                renderSectionHeader={this.renderSectionHeader}
+                renderItem={this.renderCells}
                 keyExtractor={(item, index) => item + index}
             />
         );

@@ -49,6 +49,7 @@
         "cacheDirectory": ".jest/cache"
     },
     "prettier": {
-        "tabWidth": 4
+        "tabWidth": 4,
+        "printWidth": 80
     }
 }
