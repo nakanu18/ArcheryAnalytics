@@ -12,20 +12,22 @@ interface IProps {
 }
 
 interface IState {
+    selectedEndID: number | null;
+    selectedArrowID: number | null;
     scoreCard: Types.IScoreCard;
     roundTemplate: Types.IRoundTemplate;
 }
 
-export default class ScoresDetailScreen extends React.Component<
-    IProps,
-    IState
-> {
+// prettier-ignore
+export default class ScoresDetailScreen extends React.Component<IProps, IState> {
     // Lifecycle
 
     constructor(props: IProps) {
         super(props);
 
         this.state = {
+            selectedEndID: null,
+            selectedArrowID: null,
             scoreCard: this.props.navigation.getParam("scoreCard", null),
             roundTemplate: this.props.navigation.getParam("roundTemplate", null)
         };
@@ -36,7 +38,10 @@ export default class ScoresDetailScreen extends React.Component<
     // Interaction
 
     didSelectArrowValue = (endID: number, arrowID: number) => {
-        console.log(`${endID} - ${arrowID}`);
+        this.setState({
+            selectedEndID: endID,
+            selectedArrowID: arrowID
+        });
     };
 
     // Render
@@ -56,6 +61,8 @@ export default class ScoresDetailScreen extends React.Component<
         <ScoresDetailEndCell
             endID={index}
             endScore={item}
+            // prettier-ignore
+            selectedArrowID={this.state.selectedEndID === index ? this.state.selectedArrowID : null}
             roundTemplate={this.state.roundTemplate}
             didSelectArrowValue={this.didSelectArrowValue}
         />

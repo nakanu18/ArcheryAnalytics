@@ -7,6 +7,7 @@ import * as Types from "../../Types";
 interface IProps {
     endID: number;
     endScore: number[];
+    selectedArrowID: number | null;
     roundTemplate: Types.IRoundTemplate;
     didSelectArrowValue: Function;
 }
@@ -36,6 +37,8 @@ export default class ScoresDetailEndCell extends React.Component<IProps> {
                 value,
                 props.roundTemplate.roundTarget
             );
+            // prettier-ignore
+            const arrowColor = this.props.selectedArrowID === index ? ScoreUtils.colorForSelectedArrowScore(): colorForArrowValue;
 
             return (
                 <TouchableOpacity
@@ -43,17 +46,14 @@ export default class ScoresDetailEndCell extends React.Component<IProps> {
                     style={{
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: colorForArrowValue.backgroundColor,
+                        backgroundColor: arrowColor.backgroundColor,
                         borderRadius: 10,
                         width: 30,
                         height: 30
                     }}
                     onPress={() => this.didTapArrowButton(index)}
                 >
-                    <Text
-                        key={index}
-                        style={{ color: colorForArrowValue.color }}
-                    >
+                    <Text key={index} style={{ color: arrowColor.color }}>
                         {textForArrowValue}
                     </Text>
                 </TouchableOpacity>

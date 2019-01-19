@@ -14,6 +14,13 @@ export const textForArrowScore = (
     return value;
 };
 
+export const colorForSelectedArrowScore = (): Types.IColor => {
+    return {
+        backgroundColor: "#00FF00",
+        color: "#000000"
+    };
+};
+
 export const colorForArrowScore = (
     score: number,
     roundTarget: string
