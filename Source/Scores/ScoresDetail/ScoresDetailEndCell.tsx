@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import ScoresDetailArrowButton from "./ScoresDetailArrowButton";
 import * as ScoreUtils from "../../Utils/ScoreUtils";
 import * as Types from "../../Types";
 
@@ -13,12 +14,6 @@ interface IProps {
 }
 
 export default class ScoresDetailEndCell extends React.Component<IProps> {
-    // Lifecycle
-
-    constructor(props: IProps) {
-        super(props);
-    }
-
     // Interaction
 
     didTapArrowButton = (arrowID: number) => {
@@ -27,36 +22,16 @@ export default class ScoresDetailEndCell extends React.Component<IProps> {
 
     // Render
 
-    renderEndScores = (props: IProps): JSX.Element[] => {
-        const comp = props.endScore.map((value, index) => {
-            const textForArrowValue: string = ScoreUtils.textForArrowScore(
-                value,
-                props.roundTemplate.roundTarget
-            );
-            const colorForArrowValue: Types.IColor = ScoreUtils.colorForArrowScore(
-                value,
-                props.roundTemplate.roundTarget
-            );
-            // prettier-ignore
-            const arrowColor = this.props.selectedArrowID === index ? ScoreUtils.colorForSelectedArrowScore(): colorForArrowValue;
-
+    renderEndScores = (): JSX.Element[] => {
+        const comp = this.props.endScore.map((value, index) => {
             return (
-                <TouchableOpacity
+                <ScoresDetailArrowButton
                     key={index}
-                    style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: arrowColor.backgroundColor,
-                        borderRadius: 10,
-                        width: 30,
-                        height: 30
-                    }}
-                    onPress={() => this.didTapArrowButton(index)}
-                >
-                    <Text key={index} style={{ color: arrowColor.color }}>
-                        {textForArrowValue}
-                    </Text>
-                </TouchableOpacity>
+                    arrowValue={value}
+                    isSelected={this.props.selectedArrowID === index}
+                    roundTemplate={this.props.roundTemplate}
+                    didTapArrowButton={() => this.didTapArrowButton(index)}
+                />
             );
         });
         return comp;
@@ -76,7 +51,7 @@ export default class ScoresDetailEndCell extends React.Component<IProps> {
                     </Text>
                 </View>
                 <View style={styles.scoreContainerStyle}>
-                    {this.renderEndScores(this.props)}
+                    {this.renderEndScores()}
                 </View>
                 <View style={styles.endTotalContainerStyle}>
                     <Text style={styles.endTotalStyle}>{totalEndScore}</Text>

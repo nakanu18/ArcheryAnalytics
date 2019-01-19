@@ -14,7 +14,7 @@ export const textForArrowScore = (
     return value;
 };
 
-export const colorForSelectedArrowScore = (): Types.IColor => {
+export const colorForSelectedArrowScore = (): Types.IArrowButton => {
     return {
         backgroundColor: "#00FF00",
         color: "#000000"
@@ -24,8 +24,8 @@ export const colorForSelectedArrowScore = (): Types.IColor => {
 export const colorForArrowScore = (
     score: number,
     roundTarget: string
-): Types.IColor => {
-    var color: Types.IColor = {
+): Types.IArrowButton => {
+    var color: Types.IArrowButton = {
         backgroundColor: "#FFFFFF",
         color: "#FF0000"
     };

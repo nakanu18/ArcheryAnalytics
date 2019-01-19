@@ -32,7 +32,7 @@ export interface IRoundLegTemplate {
     numberOfEnds: number;
 }
 
-export interface IColor {
+export interface IArrowButton {
     color: string;
     backgroundColor: string;
 }

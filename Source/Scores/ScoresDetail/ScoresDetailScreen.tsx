@@ -1,9 +1,10 @@
 import React from "react";
-import { SectionList, View } from "react-native";
+import { SectionList, View, Text } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import ScoresDetailEndCell from "./ScoresDetailEndCell";
 import ScoresDetailTotalsCell from "./ScoresDetailTotalsCell";
+import ScoresDetailKeypad from "./ScoresDetailKeypad";
 import { saveScoreCard, scoreReducer } from "../../Redux/ScoreDux";
 import * as Types from "../../Types";
 
@@ -50,33 +51,6 @@ export default class ScoresDetailScreen extends React.Component<
 
     renderSectionHeader = ({ section }: any) => <View />;
 
-    renderCells = ({ item, index, section }: any): JSX.Element => {
-        switch (section.title) {
-            case "header":
-                return (
-                    <ScoresDetailEndCell
-                        endID={index}
-                        endScore={item}
-                        selectedArrowID={
-                            this.state.selectedEndID === index
-                                ? this.state.selectedArrowID
-                                : null
-                        }
-                        roundTemplate={this.state.roundTemplate}
-                        didSelectArrowValue={this.didSelectArrowValue}
-                    />
-                );
-
-            default:
-                return (
-                    <ScoresDetailTotalsCell
-                        scoreCard={item}
-                        roundTemplate={this.state.roundTemplate}
-                    />
-                );
-        }
-    };
-
     renderFlatList = () => {
         if (!this.state.scoreCard) {
             return null;
@@ -94,7 +68,42 @@ export default class ScoresDetailScreen extends React.Component<
         );
     };
 
+    renderCells = ({ item, index, section }: any): JSX.Element => {
+        switch (section.title) {
+            case "header":
+                return (
+                    <ScoresDetailEndCell
+                        endID={index}
+                        endScore={item}
+                        selectedArrowID={
+                            this.state.selectedEndID === index
+                                ? this.state.selectedArrowID
+                                : null
+                        }
+                        roundTemplate={this.state.roundTemplate}
+                        didSelectArrowValue={this.didSelectArrowValue}
+                    />
+                );
+            default:
+                return (
+                    <ScoresDetailTotalsCell
+                        scoreCard={item}
+                        roundTemplate={this.state.roundTemplate}
+                    />
+                );
+        }
+    };
+
     public render() {
-        return <View style={{ flex: 1 }}>{this.renderFlatList()}</View>;
+        return (
+            <View style={{ flex: 1 }}>
+                {this.renderFlatList()}
+                <View style={{ justifyContent: "flex-end" }}>
+                    <ScoresDetailKeypad
+                        roundTemplate={this.state.roundTemplate}
+                    />
+                </View>
+            </View>
+        );
     }
 }
