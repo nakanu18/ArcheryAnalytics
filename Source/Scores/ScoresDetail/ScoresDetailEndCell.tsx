@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 import ScoresDetailArrowButton from "./ScoresDetailArrowButton";
 import * as ScoreUtils from "../../Utils/ScoreUtils";
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
+        borderRadius: 10,
         backgroundColor: "#F2F2F2"
     },
     scoreStyle: {},
